@@ -1,30 +1,66 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <Navbar />
+  <router-view />
+  <Footer />
 </template>
 
+<script>
+
+import {  mapState } from 'vuex'
+
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
+
+export default {
+  components: {
+    Navbar,
+    Footer
+  },
+  computed: {
+    ...mapState({
+      user: state => state.userData
+    })
+  },
+  beforeCreate() {
+    this.$store.dispatch('readUser')
+  },
+  created() {
+    setTimeout(() => {
+
+      console.log(this.user.name)
+      
+    }, 200)
+  },
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  @charset 'UTF8';
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+:root {
+    --color1: #5021FA;
+    --color2: #1D27DE;
+    --color3: #2B6CF5;
+    --color4: #1D8DDE;
+    --color5: #21D8FA;
+    --color6: #292a2d;
+    --color7: #101011;
+    --color8: #eee;
 }
 
-#nav {
-  padding: 30px;
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--color6);
+    width: 100%;
+    height: auto;
 }
 </style>
