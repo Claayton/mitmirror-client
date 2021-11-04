@@ -11,7 +11,7 @@
                 </div>
                 <div id="label">
                     <h5>Email</h5>
-                    <input @focus="focusFunc('.one')" @blur="blurFunc('.one', '#email')" type="email" class="input" id="email" autocomplete="off" v-model="email">
+                    <input @focus="focusFunc('.one')" @blur="blurFunc('.one', '#email')" type="email" class="input" id="email" autocomplete="off" v-model="form.email">
                 </div>
             </div>
             <div class="input-div two">
@@ -20,14 +20,14 @@
                 </div>
                 <div id="label">
                     <h5>Password</h5>
-                    <input @focus="focusFunc('.two')" @blur="blurFunc('.two', '#password')" type="password" class="input" id="password" v-model="password">
+                    <input @focus="focusFunc('.two')" @blur="blurFunc('.two', '#password')" type="password" class="input" id="password" v-model="form.password">
                 </div>
             </div>
             <div class="link check">
                 <div class="checkbox">
                     <input type="checkbox" ><strong> Keep me signed in</strong>
                 </div>
-                <router-link to="/forgetpassword">Forgot Password?</router-link>
+                <router-link to="/login/forgetpassword">Forgot Password?</router-link>
             </div>
             <input type="submit" class="btn" value="sign in">
             <div class="loading">
@@ -50,8 +50,10 @@ export default {
     name: "LoginForm",
     data() {
         return {
-            email: '',
-            password: ''
+            form: {
+                email: '',
+                password: ''    
+            }
         }
     },
     computed: {

@@ -1,6 +1,6 @@
 <template>
      <footer class="footer">
-        <p>&copy; 2021 Clayton Garcia da Silva, Br.</p>
+        <p>&copy; 2021 Clayton Garcia & Andre Gustavo, Br.</p>
     </footer>
 </template>
 

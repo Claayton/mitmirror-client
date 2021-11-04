@@ -24,9 +24,9 @@
 
 <script>
 
-import ColumnProfile from '../components/profile/ColumnProfile.vue'
-import ColumnMain from '../components/profile/ColumnMain.vue'
-import ColumnAdd from '../components/profile/ColumnAdd.vue'
+import ColumnProfile from '../components/ColumnProfile.vue'
+import ColumnMain from '../components/ColumnMain.vue'
+import ColumnAdd from '../components/ColumnAdd.vue'
 import { mapState } from 'vuex'
 
 export default {

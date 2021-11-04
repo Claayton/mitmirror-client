@@ -2,7 +2,13 @@
     <div class="ImageProfile">
         <div class="container-img" >
             <label for="imageFile" id="imageFileLabel">Escolher Imagem</label>
-            <input type="file" name="file" id="imageFile" @change="readImage">
+            <input
+                type="file"
+                name="file"
+                id="imageFile"
+                accept="image/jpeg, image/png"
+                ref="myFiles"
+                @change="readImage(event, this.file)">
             <img :src="userImage" alt="Image Profile" id="preview">
         </div>
     </div>
@@ -13,6 +19,11 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
     name: "ImageProfile",
+    data() {
+        return {
+            newImage: ''
+        }
+    },
     computed: {
         ...mapState({
             userImage: state => state.userData.profileImage,
@@ -20,12 +31,11 @@ export default {
     },
     methods: {
         ...mapMutations(["changeImageProfile"]),
-        readImage: function(e) {
-            if (this.files && this.files[0]) {
-                let file = new FileReader();
-                file.onload = this.changeImageProfile(e.target.result);       
-                file.readAsDataURL(this.files[0]);
-            }
+        readImage: function(event) {
+            const newImage = this.$refs.myFiles.file
+            console.log(event.target.files);
+            console.log(this.$refs.myFiles)
+            this.changeImageProfile(newImage)
         }
     }
 }
