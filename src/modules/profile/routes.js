@@ -1,7 +1,7 @@
 export default [
     {
         path: '/profile',
-        name: 'Profile',
+        name: 'profile',
         component: () => import(/* webpackChunkName: "profile" */ './views/Profile.vue')
     }
 ]

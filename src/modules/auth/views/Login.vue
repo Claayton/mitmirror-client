@@ -13,7 +13,7 @@
 
 <script>
 
-import LoginForm from '../../../components/home/LoginForm.vue'
+import LoginForm from '../components/LoginForm.vue'
 
 export default {
   name: 'Login',
@@ -54,6 +54,8 @@ export default {
     }
 
     .login-container {
+        display: flex;
+        justify-content: center;
         width: 97vw;
         height: 89vh;
         grid-template-columns: 1fr;

@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <form action="#" id="loginForm" name="sign-up"  @submit="submitForm">
+        <form action="#" id="loginForm" name="sign-up"  @submit="validateForm">
             <img class="avatar" src="img/profile.svg" alt="">
             <div class="notfound-container">
                 <p id="notfound">incorrect credentials!</p>
@@ -42,9 +42,10 @@
 
 <script>
 
-import axios from 'axios';
+// import axios from 'axios';
 import IconEmail from './icons/IconEmail.vue'
 import IconPassword from './icons/IconPassword.vue'
+import { mapActions } from 'vuex'
 
 export default {
     name: "LoginForm",
@@ -56,16 +57,18 @@ export default {
             }
         }
     },
-    computed: {
-        isActiveUser() {
-            return this.$store.state.isActive
-        },
-    },
+    // computed: {
+    //     isActiveUser() {
+    //         return this.$store.state.isActive
+    //     },
+    // },
     components: {
         IconEmail,
         IconPassword
     },
     methods: {
+        ...mapActions('auth', ['ActionDoLogin']),
+
         focusFunc: function(classFocus) {
             let inputFocus = document.querySelector(classFocus);
             inputFocus.classList.add('focus');
@@ -78,7 +81,7 @@ export default {
             }
         },
 
-        async submitForm(e) {
+        validateForm(e) {
 
             e.preventDefault();
 
@@ -149,11 +152,10 @@ export default {
                     register.textContent = 'incorrect credentials!'
                 }, 4000);
             } else {
-                console.log(`ta serto ${this.email}, ${this.password}`)
-                this.readForm()
+                this.submitForm()
             }
         },
-        async readForm() {
+        async submitForm() {
 
             const loading = document.querySelector('.loading');
             const icons = document.querySelectorAll('.i svg');
@@ -164,34 +166,20 @@ export default {
 
             loading.style.display = "flex";
 
-            await axios.post('https://mitmirror.herokuapp.com/api/auth/',   {
-                email: this.email,
-                password: this.password
-            }, {
-                headers:{
-                    "Permissions-Policy": "interest-cohort=()"
-                }
-            }).then((response) => {
-                
-                const dataResponse = response.data;
-                const status = response.status;
+            try{
 
-                this.token = dataResponse.Authorization
-                this.userId = dataResponse.id
+                await this.ActionDoLogin(this.form)
+                this.$router.push({ name: 'profile' })
+                loading.style.display = "none"
 
-                sessionStorage.current_token = this.token;
-                sessionStorage.current_user_id = this.userId;
+            } catch (error) {
+                console.log(error)
 
-                if (dataResponse.Authorization && status === 200) {
-                    loading.style.display = "none"
-                    window.location.href='/profile'
-                }
-            }).catch((error) => {
                 console.log(`Error?: ${error}`)
                 if (error == 'Error: Request failed with status code 403' ||
                 error == 'Error: Request failed with status code 401') {
-                    this.email = ''
-                    this.password = ''
+                    this.form.email = ''
+                    this.form.password = ''
                     icons.forEach (icon => {
                         icon.style = 'color: hsla(0, 100%, 50%, 0.294);';
                     });
@@ -215,13 +203,13 @@ export default {
                         register.style.display = "none"
                     }, 4000);
                 } else if (error == 'Error: Request failed with status code 500') {
-                    this.readForm()
+                    this.submitForm()
                 }
-            });
-        },
-
+            }
+        }
     }
 }
+
 </script>
 
 <style scoped>

@@ -6,7 +6,7 @@
 
 <script>
 
-import {  mapState } from 'vuex'
+// import {  mapState } from 'vuex'
 
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
@@ -16,21 +16,11 @@ export default {
     Navbar,
     Footer
   },
-  computed: {
-    ...mapState({
-      user: state => state.userData
-    })
-  },
-  beforeCreate() {
-    this.$store.dispatch('readUser')
-  },
-  created() {
-    setTimeout(() => {
-
-      console.log(this.user.name)
-      
-    }, 200)
-  },
+  // computed: {
+  //   ...mapState({
+  //     user: state => state.userData
+  //   })
+  // },
 }
 </script>
 

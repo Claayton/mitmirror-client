@@ -4,7 +4,7 @@
 
 <script>
 
-import Login from '../components/Login.vue'
+import Login from '../../auth/views/Login.vue'
 
 export default {
   name: 'Home',

@@ -4,10 +4,6 @@
             <h1 id="logo">
                 <router-link to="/">MitMirroR</router-link>
             </h1>
-            <p style="color: white;">{{ isActive }}
-                <button @click="isActiveUser">ativar</button>
-                <button @click="isNotActiveUser">Desativar</button>
-            </p>
             <div class="navbar-main">
                 <ul>
                     <li>
@@ -27,21 +23,8 @@
 
 <script>
 
-import { mapState, mapMutations } from 'vuex'
-
 export default {
    name: "Navbar",
-   computed: {
-       ...mapState ({
-            isActive: state => state.isActive
-       })
-    },
-    methods: {
-        ...mapMutations ([
-            "isActiveUser",
-            "isNotActiveUser"
-        ])
-    },
 }
 </script>
 
