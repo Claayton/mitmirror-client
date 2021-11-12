@@ -13,7 +13,7 @@
 <script>
 
 import ImageProfile from './ImageProfile.vue'
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
     name: "ColumnProfile",
@@ -22,14 +22,12 @@ export default {
     },
     computed: {
         ...mapState({
-            userName: state => state.userData.name,
-            userUserName: state => state.userData.userName,
+            userName: state => state.auth.user.name,
+            userUserName: state => state.auth.user.username,
         })
     },
-    methods: {
-        ...mapMutations([
-            "isNotActiveUser"
-        ])
+    mounted() {
+        console.log(this.userUsername)
     }
 }
 

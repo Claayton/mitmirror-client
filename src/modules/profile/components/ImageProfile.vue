@@ -15,7 +15,7 @@
 </template>
 <script>
 
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
     name: "ImageProfile",
@@ -26,17 +26,8 @@ export default {
     },
     computed: {
         ...mapState({
-            userImage: state => state.userData.profileImage,
+            userImage: state => state.auth.profileImage,
         })
-    },
-    methods: {
-        ...mapMutations(["changeImageProfile"]),
-        readImage: function(event) {
-            const newImage = this.$refs.myFiles.file
-            console.log(event.target.files);
-            console.log(this.$refs.myFiles)
-            this.changeImageProfile(newImage)
-        }
     }
 }
 </script>

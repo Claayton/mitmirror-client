@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isActive" class="profile">
+  <div class="profile">
     <div class="column-container">
       <ColumnProfile class="column-profile" />
     </div>
@@ -10,24 +10,14 @@
       <ColumnAdd class="column-add"/>
     </div>
   </div>
-  <div v-else>
-    <p style="color: white;">
-      Faça login ou cadastre-se para acessar a página de perfil!
-      <button>
-        <router-link to="/">MitMirroR</router-link>
-      </button>
-    </p>
-    
-  </div>
 </template>
-
 
 <script>
 
 import ColumnProfile from '../components/ColumnProfile.vue'
 import ColumnMain from '../components/ColumnMain.vue'
 import ColumnAdd from '../components/ColumnAdd.vue'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: "Profile",
@@ -37,12 +27,10 @@ export default {
     ColumnAdd
   },
   computed: {
-    ...mapState({
-      isActive: state => state.isActive
+    ...mapGetters({
+      hasUser: 'auth/hasUser'
     })
-  },
-  methods: {
-  },
+  }
 }
 </script>
 
