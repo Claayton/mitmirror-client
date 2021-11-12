@@ -7,6 +7,9 @@ export default {
     [types.SET_TOKEN] (state, payload) {
         state.token = payload
     },
+    [types.SET_CURRENT_USER_ID] (state, payload) {
+        state.current_user_id = payload
+    },
 
 
     // isActiveUser: state => state.isActive = true,
