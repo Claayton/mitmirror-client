@@ -10,16 +10,4 @@ export default {
     [types.SET_CURRENT_USER_ID] (state, payload) {
         state.current_user_id = payload
     },
-
-
-    // isActiveUser: state => state.isActive = true,
-    // isNotActiveUser: state => {
-    //   sessionStorage.removeItem("current_user_id");
-    //   sessionStorage.removeItem("current_token");
-    //   window.location.href='/'
-    //   state.isActive = false;
-    // },
-    // changeImageProfile: (state, newImage) => state.userData.profileImage = newImage,
-    // setUserName: (state, name) => state.userData.name = name
-
 }

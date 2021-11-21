@@ -11,6 +11,8 @@ export default async (to, from , next) => {
                 await store.dispatch('auth/ActionCheckToken')
                 next({ name: 'profile' })
             } catch(error) {
+
+                console.log(`Erro no beforeEach: ${error}`)
                 if (error != 'Error: Request failed with status code 500') {
                     next()
                 }
@@ -24,6 +26,7 @@ export default async (to, from , next) => {
                 await store.dispatch('auth/ActionCheckToken')
                 next()
             } catch (error) {
+                console.log(`Erro no beforeEach: ${error}`)
                 if (error != 'Error: Request failed with status code 500') {
                     next({ name: 'login' })
                 }

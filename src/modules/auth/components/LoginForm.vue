@@ -25,7 +25,7 @@
             </div>
             <div class="link check">
                 <div class="checkbox">
-                    <input type="checkbox" ><strong> Keep me signed in</strong>
+                    <input type="checkbox" v-model="form.keepSigned"><strong> Keep me signed in</strong>
                 </div>
                 <router-link to="/login/forgetpassword">Forgot Password?</router-link>
             </div>
@@ -53,7 +53,8 @@ export default {
         return {
             form: {
                 email: '',
-                password: ''    
+                password: '',
+                keepSigned: false
             }
         }
     },
@@ -173,9 +174,8 @@ export default {
                 loading.style.display = "none"
 
             } catch (error) {
-                console.log(error)
 
-                console.log(`Error?: ${error}`)
+                console.log(`Erro no LoginForm: ${error}`)
                 if (error == 'Error: Request failed with status code 403' ||
                 error == 'Error: Request failed with status code 401') {
                     this.form.email = ''
