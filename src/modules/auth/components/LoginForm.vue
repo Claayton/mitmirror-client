@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <form action="#" id="loginForm" name="sign-up"  @submit="validateForm">
+        <form id="loginForm" name="sign-up"  @submit="validateForm">
             <img class="avatar" src="img/profile.svg" alt="">
             <div class="notfound-container">
                 <p id="notfound">incorrect credentials!</p>
@@ -10,7 +10,7 @@
                     <IconEmail />
                 </div>
                 <div id="label">
-                    <h5>Email</h5>
+                    <label for="email">Email</label>
                     <input @focus="focusFunc('.one')" @blur="blurFunc('.one', '#email')" type="email" class="input" id="email" autocomplete="off" v-model="form.email">
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <IconPassword />
                 </div>
                 <div id="label">
-                    <h5>Password</h5>
+                    <label for="password">Password</label>
                     <input @focus="focusFunc('.two')" @blur="blurFunc('.two', '#password')" type="password" class="input" id="password" v-model="form.password">
                 </div>
             </div>
@@ -85,11 +85,11 @@ export default {
             const passwordInput = document.querySelector('#password');
            
             const icons = document.querySelectorAll('.i svg');
-            const labels = document.querySelectorAll('h5');
+            const borders = document.querySelectorAll('.input-div')
+            const labels = document.querySelectorAll('form label');
             const register = document.querySelector('#notfound')
 
             if (this.email == '' && this.password == '') {
-                    
                 console.log(`ta serto ${this.email}, ${this.password}`)
                 emailInput.blur()
                 register.style = 'display: block;'
@@ -99,6 +99,9 @@ export default {
                 })
                 labels.forEach (label => {
                     label.style = 'color: hsla(0, 100%, 50%, 0.294);';
+                })
+                borders.forEach (border => {
+                    border.style = 'border-bottom: 3px solid hsla(0, 100%, 50%, 0.294);';
                 })
                 setTimeout(() => {
                     emailInput.focus()
@@ -249,11 +252,17 @@ export default {
         padding: 0 40px;
     }
 
-    form h5 {
-        font-size: 2.9rem;
+    form label {
+        font-size: 1.3rem;
         color: #eee;
         font-family: 'Comfortaa', cursive;
         margin: 4px;
+        position: absolute;
+        left: 10px;
+        top: 20%;
+        color: #999;
+        transition: .3s;
+        user-select: none;
     }
 
     .input-div {
@@ -262,38 +271,45 @@ export default {
         grid-template-columns: 7% 93%;
         margin: 25px 0;
         padding: 1px 0;
-        border-bottom: 2px solid #eee;
-    }
-
-    .input-div:after .input-div:before {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        width: 0;
-        height: 2px;
-        background-color: #1D27DE;
+        border-bottom: 1px solid #eee;
         transition: .3s;
     }
 
-    .input-dev:after {
+    .input-div:after,
+    .input-div:before {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        width: 0;
+        height: 1px;
+        background-color: var(--color4);
+        transition: .3s;
+    }
+
+    .input-div:after {
         right: 50%;
     }
 
-    .input-dev:before {
+    .input-div:before {
         left: 50%;
+    }
+
+    .input-div.focus {
+        border-bottom: 1px solid transparent;
     }
 
     .input-div.focus .i svg {
         color: var(--color4);
     }
 
-    .input-div.focus div h5 {
+    .input-div.focus div label {
         top: 0px;
         font-size: 13px;
         transform: translateY(-9px);
     }
 
-    .input-div.focus:after, .input-div.focus:before {
+    .input-div.focus:after,
+    .input-div.focus:before {
         width: 50%;
     }
 
@@ -319,16 +335,6 @@ export default {
     .input-div > div {
         position: relative;
         height: 45px;
-    }
-
-    .input-div > div h5 {
-        position: absolute;
-        left: 10px;
-        top: 20%;
-
-        color: #999;
-        font-size: 20px;
-        transition: .3s;
     }
 
     .input {
