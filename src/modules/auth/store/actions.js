@@ -53,7 +53,7 @@ export const ActionLoadSession = async ({ dispatch }) => {
 
   const currentId = storage.getSessionCurrentUserId();
   const currentToken = storage.getSessionToken();
-  
+
   await axios({
     method: 'get',
     url: `https://mitmirror.herokuapp.com/api/users/${currentId}/`,
@@ -72,7 +72,6 @@ export const ActionLoadSession = async ({ dispatch }) => {
       ActionLoadSession()
     }
     dispatch('ActionSignOut')
-    window._Vue.$router.push({ name: 'login' })
   })
 }
 
@@ -96,4 +95,5 @@ export const ActionSignOut = ({ dispatch }) => {
   dispatch('ActionSetUser', {})
   dispatch('ActionSetToken', '')
   dispatch('ActionSetCurrentUserId', '')
+  window._Vue.$router.push({ name: 'login' })
 }

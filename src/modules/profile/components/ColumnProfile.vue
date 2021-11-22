@@ -5,7 +5,7 @@
         <h4>@{{ userUserName }}</h4>
         <h5>5/10</h5>
         <div class="btn-container">
-            <button class="btn" @click="isNotActiveUser">Disconect</button>
+            <button class="btn" @click="ActionSignOut">Disconect</button>
         </div>
     </div>
 </template>
@@ -13,7 +13,7 @@
 <script>
 
 import ImageProfile from './ImageProfile.vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: "ColumnProfile",
@@ -25,6 +25,9 @@ export default {
             userName: state => state.auth.user.name,
             userUserName: state => state.auth.user.username,
         })
+    },
+    methods: {
+        ...mapActions('auth', ['ActionSignOut'])
     },
     mounted() {
         console.log(this.userUsername)

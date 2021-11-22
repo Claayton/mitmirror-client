@@ -58,11 +58,6 @@ export default {
             }
         }
     },
-    // computed: {
-    //     isActiveUser() {
-    //         return this.$store.state.isActive
-    //     },
-    // },
     components: {
         IconEmail,
         IconPassword

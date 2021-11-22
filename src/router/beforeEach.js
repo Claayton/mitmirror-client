@@ -3,7 +3,7 @@ import store from '../store'
 export default async (to, from , next) => {
     document.title = `MitMirror - ${to.name}`
 
-    if (to.name === 'login'){
+    if (to.name === 'login' || to.name === 'register'){
         if (store.getters['auth/hasToken']) {
             next({ name: 'profile' })
         } else {
