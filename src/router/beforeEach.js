@@ -7,7 +7,7 @@ export default async (to, from , next) => {
         if (store.getters['auth/hasToken']) {
             next({ name: 'profile' })
         } else {
-            try{
+            try {
                 await store.dispatch('auth/ActionCheckToken')
                 next({ name: 'profile' })
             } catch(error) {

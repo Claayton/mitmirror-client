@@ -49,36 +49,30 @@ export const ActionCheckToken = ({ dispatch, state }) => {
   return dispatch('ActionLoadSession')
 }
 
-export const ActionLoadSession = ({ dispatch }) => {
-  return new Promise ((resolve) => {
-    
-    try {
-      const currentId = storage.getSessionCurrentUserId()
-      const currentToken = storage.getSessionToken();
-      axios({
-        method: 'get',
-        url: `https://mitmirror.herokuapp.com/api/users/${currentId}/`,
-        headers: {'Authorization': `Bearer ${currentToken}`}
-      })
-      .then((response) => {
-      const dataResponse = response.data.data
+export const ActionLoadSession = async ({ dispatch }) => {
 
-      dispatch('ActionSetUser', dataResponse)
-      dispatch('ActionSetCurrentUserId', dataResponse.id)
-      resolve()
-      })
-    } catch (error) {
+  const currentId = storage.getSessionCurrentUserId();
+  const currentToken = storage.getSessionToken();
+  
+  await axios({
+    method: 'get',
+    url: `https://mitmirror.herokuapp.com/api/users/${currentId}/`,
+    headers: {'Authorization': `Bearer ${currentToken}`}
+  })
+  .then((response) => {
+  const dataResponse = response.data.data
 
-      console.log(`Erro no actions: ${error}`)
-      
-      if (error == 'Error: Request failed with status code 500') {
-        console.log('Deu errinho de server mas ja ta tudo bem!, haha')
-        ActionLoadSession()
-      }
+  dispatch('ActionSetUser', dataResponse)
+  dispatch('ActionSetCurrentUserId', dataResponse.id)
+  })
+  .catch ((error) => {
 
-      dispatch('ActionSignOut')
-      reject(error)
+    if (error == 'Error: Request failed with status code 500') {
+      console.log('Deu errinho de server mas ja ta tudo bem!, haha')
+      ActionLoadSession()
     }
+    dispatch('ActionSignOut')
+    window._Vue.$router.push({ name: 'login' })
   })
 }
 
@@ -96,7 +90,9 @@ export const ActionSetToken = ({ commit }, payload) => {
 
 export const ActionSignOut = ({ dispatch }) => {
   storage.deleteLocalToken()
+  storage.deleteSessionToken()
   storage.deleteLocalCurrentUserId()
+  storage.deleteSessionCurrentUserId()
   dispatch('ActionSetUser', {})
   dispatch('ActionSetToken', '')
   dispatch('ActionSetCurrentUserId', '')
