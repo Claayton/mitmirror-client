@@ -1,26 +1,36 @@
 <template>
-  <div class="about">
-    <form>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+  <div class="register">
+    <RegisterForm />
   </div>
 </template>
 
 <script>
+
+import RegisterForm from '../components/RegisterForm.vue'
+
 export default {
-  
+  name: "Register",
+  components: {
+    RegisterForm
+  },
+  methods: {
+    focusFunc: function(classFocus) {
+            let inputFocus = document.querySelector(classFocus);
+            inputFocus.classList.add('focus');
+        },
+        blurFunc: function(classFocus, idInput){
+            let inputFocus = document.querySelector(classFocus);
+            let inputBlur = document.querySelector(idInput);
+            if (inputBlur.value == '') {
+            inputFocus.classList.remove('focus');
+            }
+        },
+  }
 }
 </script>
+
+<style scoped>
+  .register {
+    height: 90vh;
+  }
+</style>
